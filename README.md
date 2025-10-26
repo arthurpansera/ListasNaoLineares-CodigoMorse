@@ -1,7 +1,6 @@
 # 💻 TDE 2 - Listas Não-Lineares: Código Morse
 
-Projeto desenvolvido para a disciplina de Resolução de Problemas Estruturados em Computação, com foco no estudo e implementação de estruturas de dados não-lineares, utilizando uma árvore binária para representar o Código Morse.  
-O trabalho foi implementado em Java, com suporte visual em JavaFX.
+Projeto desenvolvido para a disciplina de Resolução de Problemas Estruturados em Computação, com foco no estudo e implementação de estruturas de dados não-lineares, utilizando uma árvore binária para representar o Código Morse. O trabalho foi implementado em Java, com suporte visual em JavaFX.
 
 ---
 
