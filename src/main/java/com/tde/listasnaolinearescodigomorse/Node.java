@@ -1,6 +1,7 @@
 package com.tde.listasnaolinearescodigomorse;
 
 public class Node {
+
     char letter;
     Node left;  // ponto (.)
     Node right; // traço (-)
@@ -10,4 +11,5 @@ public class Node {
         this.left = null;
         this.right = null;
     }
+
 }

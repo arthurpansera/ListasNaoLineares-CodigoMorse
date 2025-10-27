@@ -1,11 +1,14 @@
 package com.tde.listasnaolinearescodigomorse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MorseBST {
-    private Node root;
-    private Map<Character, String> morseMap;
+
+    Node root;
+    Map<Character, String> morseMap;
 
     public MorseBST() {
         root = new Node(' ');
@@ -110,32 +113,76 @@ public class MorseBST {
         return 1 + Math.max(getHeight(node.left), getHeight(node.right));
     }
 
+    public List<Node> getPath(String morseCode) {
+        List<Node> path = new ArrayList<>();
+        Node current = root;
+        path.add(current);
+
+        for (char symbol : morseCode.toCharArray()) {
+            if (symbol == '.') {
+                current = current.left;
+            } else if (symbol == '-') {
+                current = current.right;
+            }
+            if (current != null) {
+                path.add(current);
+            } else {
+                break;
+            }
+        }
+        return path;
+    }
+
     public void drawTree(javafx.scene.canvas.Canvas canvas) {
         javafx.scene.canvas.GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setStroke(javafx.scene.paint.Color.BLACK);
         gc.setLineWidth(2);
-        drawNode(gc, root, canvas.getWidth() / 2, 40, canvas.getWidth() / 4);
+        drawNode(gc, root, canvas.getWidth() / 2, 40, canvas.getWidth() / 4, null);
     }
 
-    private void drawNode(javafx.scene.canvas.GraphicsContext gc, Node node, double x, double y, double xOffset) {
+    public void drawTree(javafx.scene.canvas.Canvas canvas, List<Node> highlightedNodes) {
+        javafx.scene.canvas.GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.setLineWidth(2);
+        drawNode(gc, root, canvas.getWidth() / 2, 40, canvas.getWidth() / 4, highlightedNodes);
+    }
+
+    private void drawNode(javafx.scene.canvas.GraphicsContext gc, Node node, double x, double y, double xOffset, List<Node> highlightedNodes) {
         if (node == null) return;
 
-        gc.strokeOval(x - 15, y - 15, 30, 30);
-        gc.strokeText(String.valueOf(node.letter), x - 5, y + 5);
+        boolean isHighlighted = highlightedNodes != null && highlightedNodes.contains(node);
 
         if (node.left != null) {
             double newX = x - xOffset;
             double newY = y + 80;
+            boolean childHighlighted = highlightedNodes != null && highlightedNodes.contains(node.left);
+            gc.setStroke(isHighlighted && childHighlighted ? javafx.scene.paint.Color.GREEN : javafx.scene.paint.Color.BLACK);
+            gc.setLineWidth(isHighlighted && childHighlighted ? 4 : 2);
             gc.strokeLine(x, y + 15, newX, newY - 15);
-            drawNode(gc, node.left, newX, newY, xOffset / 2);
+            drawNode(gc, node.left, newX, newY, xOffset / 2, highlightedNodes);
         }
         if (node.right != null) {
             double newX = x + xOffset;
             double newY = y + 80;
+            boolean childHighlighted = highlightedNodes != null && highlightedNodes.contains(node.right);
+            gc.setStroke(isHighlighted && childHighlighted ? javafx.scene.paint.Color.GREEN : javafx.scene.paint.Color.BLACK);
+            gc.setLineWidth(isHighlighted && childHighlighted ? 4 : 2);
             gc.strokeLine(x, y + 15, newX, newY - 15);
-            drawNode(gc, node.right, newX, newY, xOffset / 2);
+            drawNode(gc, node.right, newX, newY, xOffset / 2, highlightedNodes);
         }
+
+        if (isHighlighted) {
+            gc.setFill(javafx.scene.paint.Color.LIGHTGREEN);
+            gc.fillOval(x - 15, y - 15, 30, 30);
+        }
+
+        gc.setStroke(isHighlighted ? javafx.scene.paint.Color.DARKGREEN : javafx.scene.paint.Color.BLACK);
+        gc.setLineWidth(isHighlighted ? 3 : 2);
+        gc.strokeOval(x - 15, y - 15, 30, 30);
+
+        gc.setFill(javafx.scene.paint.Color.BLACK);
+        gc.fillText(String.valueOf(node.letter), x - 5, y + 5);
     }
 
 }
