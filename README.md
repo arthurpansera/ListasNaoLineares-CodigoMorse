@@ -8,11 +8,11 @@ Projeto desenvolvido para a disciplina de Resolução de Problemas Estruturados 
 
 O objetivo deste projeto é aplicar os conceitos de listas não-lineares, através da implementação de uma árvore binária que modela o alfabeto do Código Morse.
 
-O programa deve ser capaz de:
-- Inserir cada letra do alfabeto conforme sua representação em código Morse (ponto à esquerda e traço à direita).  
-- Decodificar mensagens escritas em Morse para texto.  
-- Codificar palavras em texto para sua forma Morse.  
-- Exibir graficamente a árvore binária de forma clara e organizada, utilizando a biblioteca JavaFX.
+O trabalho envolve:
+- Inserção das letras do alfabeto conforme suas representações em Código Morse (ponto à esquerda e traço à direita).
+- Decodificação de mensagens em Morse para texto.
+- Codificação de palavras em texto para sua forma em Morse.
+- Exibição gráfica da árvore binária de maneira clara e organizada, utilizando a biblioteca JavaFX.
 
 ---
 
